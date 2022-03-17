@@ -16,7 +16,7 @@ describe('Persistent Node Chat Server', () => {
   beforeAll((done) => {
     dbConnection.connect();
 
-       const tablename = ''; // TODO: fill this out
+       const tablename = 'messages'; // TODO: fill this out <- tell Kate I fixed this
 
     /* Empty the db table before all tests so that multiple tests
      * (or repeated runs of the tests)  will not fail when they should be passing
@@ -53,7 +53,7 @@ describe('Persistent Node Chat Server', () => {
           // Should have one result:
           expect(results.length).toEqual(1);
 
-          // TODO: If you don't have a column named text, change this test.
+          // TODO: If you don't have a column named text, change this test. <- tell Kate about this, we can use text as column name and it will work
           expect(results[0].text).toEqual(message);
           done();
         });
@@ -65,8 +65,11 @@ describe('Persistent Node Chat Server', () => {
 
   it('Should output all messages from the DB', (done) => {
     // Let's insert a message into the db
-       const queryString = '';
-       const queryArgs = [];
+    //want: everything from tables messages and rooms, which are joined
+    //along the messages.room and rooms.id fields
+    //SELECT * FROM (messages INNER JOIN rooms) ON messages.room = rooms.id;
+    const queryString = 'SELECT * FROM messages INNER JOIN rooms ON messages.room = rooms.id';
+    const queryArgs = [];
     /* TODO: The exact query string and query args to use here
      * depend on the schema you design, so I'll leave them up to you. */
     dbConnection.query(queryString, queryArgs, (err) => {

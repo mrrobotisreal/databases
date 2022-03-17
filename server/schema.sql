@@ -26,7 +26,7 @@ create table users (
 CREATE TABLE messages (
   id integer primary key,
   userid integer,
-  communication varchar(30),
+  text varchar(30),
   room integer,
   foreign key(room) references rooms(id),
   foreign key(userid) references users(id)
