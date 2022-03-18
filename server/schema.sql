@@ -5,8 +5,9 @@ USE chat;
 /* Create other tables and define schemas for them here! */
 
 create table rooms (
-  id integer primary key,
-  roomname varchar(30)
+  id integer not null auto_increment,
+  roomname varchar(100),
+  primary key(id)
 );
 
 /*create table friends (
@@ -18,16 +19,18 @@ select * from users where friend = true
 */
 
 create table users (
-  id integer primary key,
-  username varchar(30),
-  friend boolean
+  id integer not null auto_increment,
+  username varchar(100),
+  friend boolean,
+  primary key(id)
 );
 
 CREATE TABLE messages (
-  id integer primary key,
+  id integer not null auto_increment,
   userid integer,
-  text varchar(30),
+  text text,
   room integer,
+  primary key(id),
   foreign key(room) references rooms(id),
   foreign key(userid) references users(id)
 );
@@ -37,3 +40,6 @@ CREATE TABLE messages (
  *    mysql -u root < server/schema.sql
  *  to create the database and the tables.*/
 
+insert into users values (1, 'flapjack', true);
+insert into rooms values (1, 'ihop');
+insert into messages values (1, 1, 'mmmm pancakes', 1);
